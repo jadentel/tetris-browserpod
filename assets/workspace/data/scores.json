@@ -1,0 +1,7 @@
+{
+  "scores": [
+    { "name": "CPU", "score": 9999 },
+    { "name": "AI", "score": 5000 },
+    { "name": "P1", "score": 100 }
+  ]
+}

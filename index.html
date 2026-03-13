@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BrowserPod Tetris Agent</title>
+  <link rel="stylesheet" href="/src/style.css" />
+  <!-- Use inter font for polish -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <header class="top-bar">
+      <div class="brand">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 17L12 22L22 17" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 12L12 17L22 12" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h1>BrowserPod Tetris Agent</h1>
+      </div>
+      <div class="status-indicators">
+        <span class="status-badge" id="pod-status">Pod: Offline</span>
+        <span class="status-badge" id="server-status">Server: Stopped</span>
+      </div>
+    </header>
+
+    <main class="main-layout">
+      <!-- LEFT PANEL: Prompt Input & Controls -->
+      <section class="panel control-panel">
+        <h2>Agent Controls</h2>
+        <div class="prompt-container">
+          <label for="prompt-input">Prompt Agent:</label>
+          <textarea id="prompt-input" rows="4" placeholder="e.g. Add a neon theme to the game."></textarea>
+          <button id="btn-run-agent" class="btn primary">Run Agent</button>
+        </div>
+
+        <div class="quick-prompts">
+          <h3>Try a prompt:</h3>
+          <ul id="prompt-suggestions">
+            <li><button class="btn-prompt">Add a neon theme</button></li>
+            <li><button class="btn-prompt">Add a persistent leaderboard</button></li>
+            <li><button class="btn-prompt">Add an autoplay AI bot</button></li>
+            <li><button class="btn-prompt">Add pause and resume</button></li>
+            <li><button class="btn-prompt">Make the pieces fall faster</button></li>
+          </ul>
+        </div>
+
+        <div class="system-controls">
+          <button id="btn-boot" class="btn secondary">Boot Only</button>
+          <button id="btn-reset" class="btn danger">Reset Sandbox</button>
+          <button id="btn-share" class="btn secondary" disabled>Share Demo</button>
+        </div>
+      </section>
+
+      <!-- MIDDLE PANEL: Agent & Filesystem -->
+      <section class="panel agent-panel">
+        <div class="panel-section half-height">
+          <h2>Agent Timeline</h2>
+          <ul id="timeline-list" class="timeline">
+            <li class="timeline-item waiting">Awaiting prompt...</li>
+          </ul>
+        </div>
+        <div class="panel-section half-height">
+          <h2>Virtual Filesystem</h2>
+          <ul id="file-explorer" class="file-tree">
+            <!-- Populated via JS -->
+            <li class="tree-item empty">Not booted</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- RIGHT PANEL: Live Preview -->
+      <section class="panel preview-panel">
+        <div class="preview-header">
+          <h2>Live Preview</h2>
+          <div id="preview-url" class="url-bar">http://localhost:3000/</div>
+        </div>
+        <div class="preview-container">
+          <iframe id="preview-frame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals" title="Tetris Game"></iframe>
+          <div id="preview-overlay" class="iframe-overlay">
+            <span class="loading-spinner"></span> Waiting for server...
+          </div>
+        </div>
+        <div id="share-url-box" class="share-box hidden">
+          <span>Portal URL:</span> <a href="#" target="_blank" id="share-link">Generating...</a>
+        </div>
+      </section>
+    </main>
+
+    <!-- BOTTOM PANEL: Terminal & Status -->
+    <footer class="bottom-panel">
+      <div class="term-section">
+        <h3>BrowserPod Terminal Shell</h3>
+        <div id="terminal-container"></div>
+      </div>
+      <div class="process-section">
+        <h3>Running Processes</h3>
+        <ul id="process-list" class="process-list">
+          <li class="empty-proc">None</li>
+        </ul>
+        <div class="benchmark-data">
+          <h4>Timings:</h4>
+          <div id="timing-boot">Boot: -</div>
+          <div id="timing-server">Server start: -</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
